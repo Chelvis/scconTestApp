@@ -1,3 +1,51 @@
-<p>
-  search-client works!
-</p>
+<section class="container">
+  <form novalidate (submit)="doSearch()">
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <label for="name">Nome</label>
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="search.name" />
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="email">E-mail</label>
+        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="search.email" />
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="phone">CEP</label>
+        <input type="phone" class="form-control" id="phone" name="phone" [(ngModel)]="search.zipCode" />
+      </div>
+      <div class="form-group col-sm-2">
+        <label>&nbsp;</label><br>
+        <button type="submit" class="appButton">BUSCAR</button>
+      </div>
+    </div>
+  </form>
+
+  <hr />
+
+  <p>Exibindo {{results.length}} cliente{{results.length > 1 ? 's' : ''}}.</p>
+
+  <table width="100%" cellpadding="0" cellspacing="0" class="resultTable">
+    <tbody>
+      <tr>
+        <th width="23%">Nome</th>
+        <th width="22%">E-mail</th>
+        <th width="14%">CEP</th>
+        <th width="16%">Telefone</th>
+        <th width="9%" class="text-center">Ativo</th>
+        <th width="16%" class="text-center">Ações</th>
+      </tr>
+      <tr *ngFor="let result of results">
+        <td>{{result.name}}</td>
+        <td>{{result.email}}</td>
+        <td>{{result.zipCode}}</td>
+        <td>{{result.phone}}</td>
+        <td class="text-center"><i [class]="'fa fa-' + (result.active ? 'check resultTable--ico' : 'times resultTable--ico')"></i></td>
+        <td class="text-center">
+          <a routerLink="/clientes/cadastro/" [queryParams]="{id: result.id}" title="editar"><i class="fa fa-edit resultTable--ico"></i></a>
+          <a [routerLink]="null" (click)="delete(result.id)" title="deletar"><i class="fa fa-trash resultTable--ico"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>

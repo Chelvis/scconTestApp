@@ -5,8 +5,8 @@
       "name": "Kelvin Marques",
       "email": "kelvin.marques@gmail.com",
       "phone": "(11) 98433 3790",
+      "zipCode": "04520-013",
       "address": {
-        "cep": "04520-013",
         "logradouro": "Rua Inhambu",
         "numero": 973,
         "complemento": "AP 31A",
@@ -20,10 +20,10 @@
     {
       "id": 2,
       "name": "Kelvin Marques 2",
-      "email": "kelvin.marques@gmail.com",
+      "email": "pontokelvin@hotmail.com",
       "phone": "(11) 98433 3790",
+      "zipCode": "04520-013",
       "address": {
-        "cep": "04520-013",
         "logradouro": "Rua Inhambu",
         "numero": 973,
         "complemento": "AP 31A",
@@ -31,8 +31,23 @@
         "localidade": "São Paulo",
         "uf": "SP"
       },
-      "active": true,
+      "active": false,
       "date": "2018-08-15 14:02:23"
+    },
+    {
+      "active": true,
+      "address": {
+        "logradouro": "Av Laurita Ortega Mari",
+        "localidade": "Taboão da Serra",
+        "uf": "SP",
+        "numero": "1587",
+        "bairro": "Vila das Oliveiras"
+      },
+      "name": "KELVIN MARQUES DA SILVA",
+      "email": "kelvin.marques@gmail.com",
+      "phone": "11984333790",
+      "zipCode": "06766-360",
+      "id": 3
     }
   ]
 }

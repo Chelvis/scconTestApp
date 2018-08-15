@@ -46,3 +46,9 @@ Elaborado para fins de teste de aptidão em desenvolvimento de aplicações web 
 ## Observações importantes
 
 - Utilizei os recursos do Bootstrap 4 (que por sua vez, para esta tarefa, utiliza o jQuery e o Popper.js), para construir o menu com submenus, apenas para demonstrar minha aptidão com o framework, mas normalmente eu utilizaria CSS3 e JS/TS puros.
+
+
+
+
+- pensei em usar localStorage
+- Fiz a validação do form manual

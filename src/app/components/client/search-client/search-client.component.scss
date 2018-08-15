@@ -1,0 +1,10 @@
+@import 'variables';
+
+.resultTable { font-size: 14px;
+    th, td {padding: 3px; border-bottom:1px solid #ddd;}
+    th {background: $green; color: white;}
+    &--ico {display: inline-block; margin: 0 4px; font-size: 17px; color: $appColor;
+        &.fa-check {color: $green;}
+        &.fa-times {color: maroon;}
+    }
+}

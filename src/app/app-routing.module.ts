@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'clientes/busca', component: SearchClientComponent },
   { path: 'clientes/dados/:id', component: ViewClientComponent },
   { path: 'clientes/cadastro', component: PostOrPutClientComponent },
-  { path: 'clientes', redirectTo: 'cliente/busca'},
+  // { path: 'clientes', redirectTo: 'cliente/busca'},
   { path: '**', component: PageNotFoundComponent }
 ];
 

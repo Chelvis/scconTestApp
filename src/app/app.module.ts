@@ -24,7 +24,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SharedModule,
     ServicesModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

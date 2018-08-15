@@ -16,6 +16,8 @@ import { RouterModule } from '@angular/router';
     PostOrPutClientComponent,
     SearchClientComponent,
     ViewClientComponent
+  ],
+  providers: [
   ]
 })
 export class ClientModule { }

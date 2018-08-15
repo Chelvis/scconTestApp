@@ -1,63 +1,91 @@
-<section id="client" class="container">
-  <h1>Editar dados do cliente</h1>
+<section *ngIf="notFound; else content" class="container">
+  <h1>Cliente não encontrado.</h1>
+  <p>Desculpe, mas o cliente que você está procurando não existe em nossa base de dados.</p>
+  <p><a routerLink="/" class="app-button">VOLTAR</a></p>
+</section>
 
-  <form novalidate *ngIf="client">
-    <div class="row">
-      <div class="form-group col-sm-4">
-        <label for="name">Nome</label>
-        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="client.name" />
+<ng-template #content>
+  <section id="client" class="container">
+    <h1>Editar dados do cliente</h1>
+
+    <div class="messages">
+      <div class="messages--error" *ngIf="validation?.length">
+        <h3>Cadastro incorreto!</h3>
+        <p>Por favor, siga as instruções abaixo e tente novamente.</p>
+        <ul>
+          <li *ngFor="let error of validation">{{error}}</li>
+        </ul>
       </div>
-      <div class="form-group col-sm-4">
-        <label for="email">E-mail</label>
-        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="client.email" />
-      </div>
-      <div class="form-group col-sm-4">
-        <label for="phone">Telefone</label>
-        <input type="phone" class="form-control" id="phone" name="phone" [(ngModel)]="client.phone" />
+      <div class="messages--error" *ngIf="requestError">
+        <h3>Algo deu errado.</h3>
+        <p>Ocorreu um erro durante a requisição.</p>
+        <p>Por favor, tente novamente mais tarde.</p>
+        <p>Detalhes:</p>
+
+        {{requestError}}
       </div>
     </div>
 
-    <div class="row">
-      <div class="form-group col-sm-3">
-        <label for="cep">CEP</label>
-        <input type="phone" class="form-control" id="cep" name="cep" [(ngModel)]="client.address.cep" />
-      </div>
-      <div class="form-group col-sm-5">
-        <div class="row">
-          <div class="col-10">
-            <label for="logradouro">Logadouro</label>
-            <input type="text" class="form-control" id="logradouro" name="logradouro" [(ngModel)]="client.address.logradouro" />
-          </div>
-          <div class="col-2">
-            <label for="phone">Nº</label>
-            <input type="phone" class="form-control" id="numero" name="numero" [(ngModel)]="client.address.numero" />
-          </div>
+    <form novalidate *ngIf="client" (submit)="submit()">
+      <div class="row">
+        <div class="form-group col-sm-4">
+          <label for="name">Nome</label>
+          <input type="text" class="form-control" id="name" name="name" maxlength="200" [(ngModel)]="client.name" />
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="email">E-mail</label>
+          <input type="email" class="form-control" id="email" name="email" maxlength="200" [(ngModel)]="client.email" />
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="phone">Telefone</label>
+          <input type="phone" class="form-control" id="phone" name="phone" [(ngModel)]="client.phone" />
         </div>
       </div>
-      <div class="form-group col-sm-4">
-        <label for="complemento">Complemento</label>
-        <input type="text" class="form-control" id="complemento" name="complemento" [(ngModel)]="client.address.complemento" />
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="form-group col-sm-5">
-        <label for="bairro">Bairro</label>
-        <input type="text" class="form-control" id="bairro" name="bairro" [(ngModel)]="client.address.bairro" />
+      <div class="row">
+        <div class="form-group col-sm-3">
+          <label for="cep">CEP</label>
+          <input type="phone" class="form-control" id="cep" name="cep" [(ngModel)]="client.zipCode" />
+        </div>
+        <div class="form-group col-sm-5">
+          <div class="row">
+            <div class="col-10">
+              <label for="logradouro">Logadouro</label>
+              <input type="text" class="form-control" id="logradouro" name="logradouro" maxlength="200" [(ngModel)]="client.address.logradouro" />
+            </div>
+            <div class="col-2">
+              <label for="phone">Nº</label>
+              <input type="phone" class="form-control" id="numero" name="numero" maxlength="10" [(ngModel)]="client.address.numero" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="complemento">Complemento</label>
+          <input type="text" class="form-control" id="complemento" name="complemento" maxlength="100" [(ngModel)]="client.address.complemento" />
+        </div>
       </div>
-      <div class="form-group col-sm-4">
-        <label for="localidade">Localidade</label>
-        <input type="text" class="form-control" id="localidade" name="localidade" [(ngModel)]="client.address.localidade" />
+
+      <div class="row">
+        <div class="form-group col-sm-5">
+          <label for="bairro">Bairro</label>
+          <input type="text" class="form-control" id="bairro" name="bairro" maxlength="100" [(ngModel)]="client.address.bairro" />
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="localidade">Localidade</label>
+          <input type="text" class="form-control" id="localidade" name="localidade" maxlength="100" [(ngModel)]="client.address.localidade" />
+        </div>
+        <div class="form-group col-sm-3">
+          <label for="uf">UF</label>
+          <input type="text" class="form-control" id="uf" name="uf" maxlength="2" [(ngModel)]="client.address.uf" />
+        </div>
       </div>
-      <div class="form-group col-sm-3">
-        <label for="uf">UF</label>
-        <input type="text" class="form-control" id="uf" name="uf" [(ngModel)]="client.address.uf" />
-      </div>
-    </div>
 
-    <label><input type="checkbox" name="active" [(ngModel)]="client.active" /> Ativo</label>
+      <label><input type="checkbox" name="active" [(ngModel)]="client.active" /> Ativo</label>
 
-    <button type="submit">CADASTRAR</button>
-  </form>
+      <br/><br/>
 
-</section>
+      <button type="submit">CADASTRAR</button>
+    </form>
+
+  </section>
+</ng-template>
