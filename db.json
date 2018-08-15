@@ -1,0 +1,38 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "name": "Kelvin Marques",
+      "email": "kelvin.marques@gmail.com",
+      "phone": "(11) 98433 3790",
+      "address": {
+        "cep": "04520-013",
+        "logradouro": "Rua Inhambu",
+        "numero": 973,
+        "complemento": "AP 31A",
+        "bairro": "Vila Uberabinha",
+        "localidade": "São Paulo",
+        "uf": "SP"
+      },
+      "active": true,
+      "date": "2018-08-15 14:02:23"
+    },
+    {
+      "id": 2,
+      "name": "Kelvin Marques 2",
+      "email": "kelvin.marques@gmail.com",
+      "phone": "(11) 98433 3790",
+      "address": {
+        "cep": "04520-013",
+        "logradouro": "Rua Inhambu",
+        "numero": 973,
+        "complemento": "AP 31A",
+        "bairro": "Vila Uberabinha",
+        "localidade": "São Paulo",
+        "uf": "SP"
+      },
+      "active": true,
+      "date": "2018-08-15 14:02:23"
+    }
+  ]
+}
