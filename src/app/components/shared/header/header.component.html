@@ -1,0 +1,22 @@
+<header>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-3">
+        <a routerLink="/" class="logo"><img src="/assets/images/logo.svg" alt="Logo SCCON" /></a>
+      </div>
+      <div class="col-9">
+        <nav>
+          <ul class="nav nav-pills justify-content-end">
+            <li class="nav-item"><a routerLink="/" class="nav-link">Página inicial</a></li>
+            <li class="nav-item dropdown"><a [routerLink]="null" class="nav-link" data-toggle="dropdown">Clientes</a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item"><a routerLink="/">Buscar</a></li>
+                <li class="dropdown-item"><a routerLink="/">Cadastrar</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>

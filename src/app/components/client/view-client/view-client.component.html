@@ -1,0 +1,31 @@
+<section id="client" class="container">
+  <h1>Dados do cliente</h1>
+
+  <dl>
+    <dt>Nome:</dt>
+    <dd>{{client.name}}</dd>
+    <dt>E-mail:</dt>
+    <dd>{{client.email}}</dd>
+    <dt>Telefone:</dt>
+    <dd>{{client.phone}}</dd>
+    <dt>CEP:</dt>
+    <dd>{{client.address.cep}}</dd>
+    <dt>Logadouro:</dt>
+    <dd>{{client.address.logradouro}}</dd>
+    <dt>Número:</dt>
+    <dd>{{client.address.numero}}</dd>
+    <dt>Complemento:</dt>
+    <dd>{{client.address.complemento}}</dd>
+    <dt>Bairro:</dt>
+    <dd>{{client.address.bairro}}</dd>
+    <dt>Localidade:</dt>
+    <dd>{{client.address.localidade}}</dd>
+    <dt>UF:</dt>
+    <dd>{{client.address.uf}}</dd>
+    <dt>Ativo:</dt>
+    <dd>{{client.active ? 'Sim' : 'Não'}}</dd>
+  </dl>
+
+  <a routerLink="/clientes/cadastro" [queryParams]="{editar: client.id}" class="app-button">EDITAR</a>
+
+</section>
