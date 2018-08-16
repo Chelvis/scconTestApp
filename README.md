@@ -52,3 +52,4 @@ Elaborado para fins de teste de aptidão em desenvolvimento de aplicações web 
 
 - pensei em usar localStorage
 - Fiz a validação do form manual
+- input mask, json server

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ClientModule } from './client/client.module';
+import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 
 
@@ -12,10 +12,11 @@ import { HomeModule } from './home/home.module';
     CommonModule,
     RouterModule,
     HomeModule,
+    SharedModule,
     ClientModule
   ],
   declarations: [
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ]
 })
 export class ComponentsModule { }

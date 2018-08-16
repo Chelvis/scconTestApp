@@ -1,31 +1,39 @@
-<section id="client" class="container">
-  <h1>Dados do cliente</h1>
+<app-client-not-found *ngIf="notFound; else content"></app-client-not-found>
 
-  <dl>
-    <dt>Nome:</dt>
-    <dd>{{client.name}}</dd>
-    <dt>E-mail:</dt>
-    <dd>{{client.email}}</dd>
-    <dt>Telefone:</dt>
-    <dd>{{client.phone}}</dd>
-    <dt>CEP:</dt>
-    <dd>{{client.address.cep}}</dd>
-    <dt>Logadouro:</dt>
-    <dd>{{client.address.logradouro}}</dd>
-    <dt>Número:</dt>
-    <dd>{{client.address.numero}}</dd>
-    <dt>Complemento:</dt>
-    <dd>{{client.address.complemento}}</dd>
-    <dt>Bairro:</dt>
-    <dd>{{client.address.bairro}}</dd>
-    <dt>Localidade:</dt>
-    <dd>{{client.address.localidade}}</dd>
-    <dt>UF:</dt>
-    <dd>{{client.address.uf}}</dd>
-    <dt>Ativo:</dt>
-    <dd>{{client.active ? 'Sim' : 'Não'}}</dd>
-  </dl>
+<ng-template #content>
+  <section id="client" class="container">
+    <h1 [innerHTML]="title"></h1>
+    <br>
+    <dl>
+      <dt>Nome:</dt>
+      <dd>{{client.name}}</dd>
+      <dt>E-mail:</dt>
+      <dd>{{client.email}}</dd>
+      <dt>Telefone:</dt>
+      <dd>{{client.phone}}</dd>
+      <dt>CEP:</dt>
+      <dd>{{client.address.cep}}</dd>
+      <dt>Endereço:</dt>
+      <dd>{{client.address.logradouro}}, {{client.address.numero}} </dd>
+      <dt>Complemento:</dt>
+      <dd>{{client.address.complemento}}</dd>
+      <dt>Bairro:</dt>
+      <dd>{{client.address.bairro}}</dd>
+      <dt>Localidade:</dt>
+      <dd>{{client.address.localidade}}</dd>
+      <dt>UF:</dt>
+      <dd>{{client.address.uf}}</dd>
+      <dt>Ativo:</dt>
+      <dd>{{client.active ? 'Sim' : 'Não'}}</dd>
+      <dt>Data de cadastro:</dt>
+      <dd>{{client.date | date: 'dd/MM/yyy - hh:mm'}}</dd>
+    </dl>
+    <br>
 
-  <a routerLink="/clientes/cadastro" [queryParams]="{editar: client.id}" class="app-button">EDITAR</a>
+    <div class="text-right">
+      <button type="button" (click)="delete()">DELETAR</button>
+      <a routerLink="/clientes/cadastro" [queryParams]="{id: client.id}" class="app-button">EDITAR</a>
+    </div>
 
-</section>
+  </section>
+</ng-template>

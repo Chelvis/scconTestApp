@@ -5,7 +5,6 @@ export interface Client {
   name: string;
   email: string;
   phone: string;
-  zipCode: string;
   address: Address;
   active: boolean;
   date: Date;

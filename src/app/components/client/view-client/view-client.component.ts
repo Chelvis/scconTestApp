@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../../models/client';
 import { Address } from '../../../models/address';
+import { AppComponent } from '../../../app.component';
+import { ClientsService } from '../../../services/clients/clients.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-client',
@@ -9,13 +12,44 @@ import { Address } from '../../../models/address';
 })
 export class ViewClientComponent implements OnInit {
 
+  title = 'Ficha do cliente';
   client: Client;
+  notFound = false;
 
-  constructor() { }
+  constructor(
+    private appComponent: AppComponent,
+    private clientsService: ClientsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    this.client = {name: 'Testeee', id: 281} as Client;
-    this.client.address = {} as Address;
+    this.appComponent.setLoading(true);
+    this.appComponent.setTitle(this.title);
+    this.activatedRoute.params.subscribe(params => {
+      this.clientsService.getById(parseInt(params.id, 10)).subscribe((data: Client) => {
+        this.client = data;
+        this.appComponent.setLoading(false);
+      }, error => {
+        if (error.status === 404) {
+          this.notFound = true;
+        }
+        console.log(error);
+        this.appComponent.setLoading(false);
+      });
+    });
+  }
+
+  delete() {
+    if (!this.client.id) {
+      return;
+    }
+    this.appComponent.setLoading(true);
+    this.clientsService.delete(this.client.id).subscribe(data => {
+      this.router.navigate(['/clientes/busca']);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

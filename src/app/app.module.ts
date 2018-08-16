@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ServicesModule } from './services/services.module';
 import { HomeModule } from './components/home/home.module';
 import { ClientModule } from './components/client/client.module';
+import { NgxMaskModule } from 'ngx-mask';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     HomeModule,
     ClientModule,
     SharedModule,
-    ServicesModule
+    ServicesModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [
   ],

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  dbDir: 'http://localhost:3000/'
+  dbDir: 'http://localhost:3000/',
+  viaCepEndPoint: 'https://viacep.com.br/ws/'
 };
 
 /*

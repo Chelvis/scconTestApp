@@ -1,12 +1,8 @@
-<section *ngIf="notFound; else content" class="container">
-  <h1>Cliente não encontrado.</h1>
-  <p>Desculpe, mas o cliente que você está procurando não existe em nossa base de dados.</p>
-  <p><a routerLink="/" class="app-button">VOLTAR</a></p>
-</section>
+<app-client-not-found *ngIf="notFound; else content"></app-client-not-found>
 
 <ng-template #content>
   <section id="client" class="container">
-    <h1>Editar dados do cliente</h1>
+    <h1 [innerHTML]="title"></h1>
 
     <div class="messages">
       <div class="messages--error" *ngIf="validation?.length">
@@ -38,53 +34,23 @@
         </div>
         <div class="form-group col-sm-4">
           <label for="phone">Telefone</label>
-          <input type="phone" class="form-control" id="phone" name="phone" [(ngModel)]="client.phone" />
+          <input type="phone" class="form-control" id="phone" name="phone" [(ngModel)]="client.phone" mask="(00) 000000000" dropSpecialCharacters="false" />
         </div>
       </div>
 
-      <div class="row">
-        <div class="form-group col-sm-3">
-          <label for="cep">CEP</label>
-          <input type="phone" class="form-control" id="cep" name="cep" [(ngModel)]="client.zipCode" />
-        </div>
-        <div class="form-group col-sm-5">
-          <div class="row">
-            <div class="col-10">
-              <label for="logradouro">Logadouro</label>
-              <input type="text" class="form-control" id="logradouro" name="logradouro" maxlength="200" [(ngModel)]="client.address.logradouro" />
-            </div>
-            <div class="col-2">
-              <label for="phone">Nº</label>
-              <input type="phone" class="form-control" id="numero" name="numero" maxlength="10" [(ngModel)]="client.address.numero" />
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-sm-4">
-          <label for="complemento">Complemento</label>
-          <input type="text" class="form-control" id="complemento" name="complemento" maxlength="100" [(ngModel)]="client.address.complemento" />
-        </div>
-      </div>
+      {{client | json}}
 
-      <div class="row">
-        <div class="form-group col-sm-5">
-          <label for="bairro">Bairro</label>
-          <input type="text" class="form-control" id="bairro" name="bairro" maxlength="100" [(ngModel)]="client.address.bairro" />
-        </div>
-        <div class="form-group col-sm-4">
-          <label for="localidade">Localidade</label>
-          <input type="text" class="form-control" id="localidade" name="localidade" maxlength="100" [(ngModel)]="client.address.localidade" />
-        </div>
-        <div class="form-group col-sm-3">
-          <label for="uf">UF</label>
-          <input type="text" class="form-control" id="uf" name="uf" maxlength="2" [(ngModel)]="client.address.uf" />
-        </div>
-      </div>
-
-      <label><input type="checkbox" name="active" [(ngModel)]="client.active" /> Ativo</label>
+      <app-zip-search [address]="client.address" [newClient]="newClient" (emitAddress)="addAddress($event)"></app-zip-search>
+      
+      <ng-container *ngIf="!newClient">
+        <label><input type="checkbox" name="active" [(ngModel)]="client.active" /> Ativo</label>
+      </ng-container>
 
       <br/><br/>
-
-      <button type="submit">CADASTRAR</button>
+      <div class="text-right">
+        <button *ngIf="!newClient" type="button" (click)="delete()">DELETAR</button>
+        <button type="submit">{{newClient ? 'CADASTRAR' : 'ATUALIZAR'}}</button>
+      </div>
     </form>
 
   </section>

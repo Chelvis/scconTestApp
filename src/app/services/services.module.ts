@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ResourcesService } from './resources/resources.service';
 import { ClientsService } from './clients/clients.service';
+import { GetAddressService } from './getAddress/get-address.service';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { ClientsService } from './clients/clients.service';
   ],
   providers: [
     ResourcesService,
-    ClientsService
+    ClientsService,
+    GetAddressService
   ]
 })
 export class ServicesModule { }

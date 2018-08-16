@@ -5,12 +5,16 @@ import { PostOrPutClientComponent } from './post-or-put-client/post-or-put-clien
 import { SearchClientComponent } from './search-client/search-client.component';
 import { ViewClientComponent } from './view-client/view-client.component';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    SharedModule,
+    NgxMaskModule
   ],
   declarations: [
     PostOrPutClientComponent,

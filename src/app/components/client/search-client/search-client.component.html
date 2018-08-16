@@ -1,4 +1,7 @@
 <section class="container">
+
+  <h1 [innerHTML]="title"></h1>
+
   <form novalidate (submit)="doSearch()">
     <div class="row">
       <div class="form-group col-sm-4">
@@ -11,7 +14,7 @@
       </div>
       <div class="form-group col-sm-3">
         <label for="phone">CEP</label>
-        <input type="phone" class="form-control" id="phone" name="phone" [(ngModel)]="search.zipCode" />
+        <input type="phone" class="form-control" id="phone" name="phone" [(ngModel)]="search.address.cep" />
       </div>
       <div class="form-group col-sm-2">
         <label>&nbsp;</label><br>
@@ -22,30 +25,35 @@
 
   <hr />
 
-  <p>Exibindo {{results.length}} cliente{{results.length > 1 ? 's' : ''}}.</p>
+  <p *ngIf="!results?.length; else searchResults">Nenhum resultado encontrado.</p>
 
-  <table width="100%" cellpadding="0" cellspacing="0" class="resultTable">
-    <tbody>
-      <tr>
-        <th width="23%">Nome</th>
-        <th width="22%">E-mail</th>
-        <th width="14%">CEP</th>
-        <th width="16%">Telefone</th>
-        <th width="9%" class="text-center">Ativo</th>
-        <th width="16%" class="text-center">Ações</th>
-      </tr>
-      <tr *ngFor="let result of results">
-        <td>{{result.name}}</td>
-        <td>{{result.email}}</td>
-        <td>{{result.zipCode}}</td>
-        <td>{{result.phone}}</td>
-        <td class="text-center"><i [class]="'fa fa-' + (result.active ? 'check resultTable--ico' : 'times resultTable--ico')"></i></td>
-        <td class="text-center">
-          <a routerLink="/clientes/cadastro/" [queryParams]="{id: result.id}" title="editar"><i class="fa fa-edit resultTable--ico"></i></a>
-          <a [routerLink]="null" (click)="delete(result.id)" title="deletar"><i class="fa fa-trash resultTable--ico"></i></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ng-template #searchResults>
+    <p>Exibindo {{results.length}} cliente{{results.length > 1 ? 's' : ''}}.</p>
+
+    <table width="100%" cellpadding="0" cellspacing="0" class="resultTable">
+      <tbody>
+        <tr>
+          <th width="23%">Nome</th>
+          <th width="22%">E-mail</th>
+          <th width="14%">CEP</th>
+          <th width="16%">Telefone</th>
+          <th width="9%" class="text-center">Ativo</th>
+          <th width="16%" class="text-center">Ações</th>
+        </tr>
+        <tr *ngFor="let result of results">
+          <td>{{result.name}}</td>
+          <td>{{result.email}}</td>
+          <td>{{result.address.cep}}</td>
+          <td>{{result.phone}}</td>
+          <td class="text-center"><i [class]="'fa fa-' + (result.active ? 'check resultTable--ico' : 'times resultTable--ico')"></i></td>
+          <td class="text-center">
+            <a [routerLink]="'/clientes/dados/' + result.id" title="visualizar"><i class="fa fa-eye resultTable--ico"></i></a>
+            <a routerLink="/clientes/cadastro/" [queryParams]="{id: result.id}" title="editar"><i class="fa fa-edit resultTable--ico"></i></a>
+            <a [routerLink]="null" (click)="delete(result.id)" title="deletar"><i class="fa fa-trash resultTable--ico"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
 
 </section>

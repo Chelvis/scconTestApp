@@ -38,10 +38,7 @@ export class ClientsService {
   }
 
   delete(id: number): Observable<any> {
-    if (!confirm('Deseja mesmo deletar o cliente?')) {
-      return;
-    }
-    return this.http.delete<any>(this.clientsDir + id.toString);
+    return this.http.delete<any>(this.clientsDir + id.toString());
   }
 
   search(data: Client): Observable<any> {
@@ -49,6 +46,7 @@ export class ClientsService {
     Object.keys(data).forEach(function (key) {
       if (data[key]) {
         params = params.append(key, data[key]);
+        console.log(params);
       }
     });
     return this.http.get<any>(this.clientsDir, { params: params });
