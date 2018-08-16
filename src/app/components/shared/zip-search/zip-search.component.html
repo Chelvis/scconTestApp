@@ -1,42 +1,50 @@
+<label for="cep">CEP</label>
+
 <div class="row">
-  <div class="form-group col-sm-3">
-    <label for="cep">CEP</label>
-    <input type="phone" class="form-control" id="cep" name="cep" [(ngModel)]="address.cep" mask='00000-000' (ngModelChange)="checkZip()" dropSpecialCharacters="false" />
+  <div class="form-group col-md-3">
+    <input type="phone" class="form-control" id="cep" name="cep" [(ngModel)]="address.cep" mask='00000-000' dropSpecialCharacters="false"
+      (ngModelChange)="clearCEP()" />
   </div>
-  <ng-container *ngIf="validCep">
-    <div class="form-group col-sm-5">
+  <div class="form-group col-md-9" *ngIf="!validCep">
+    <button type="button" (click)="checkZip()"><i class="fa fa-search"></i> BUSCAR CEP</button>
+  </div>
+</div>
+
+<ng-container *ngIf="validCep">
+  <div class="row">
+    <div class="form-group col-md-8">
       <div class="row">
-        <div class="col-10">
+        <div class="col-sm-9">
           <label for="logradouro">Logadouro</label>
           <input disabled type="text" class="form-control" id="logradouro" name="logradouro" maxlength="200" [(ngModel)]="address.logradouro"
           />
         </div>
-        <div class="col-2">
+        <div class="col-sm-3">
           <label for="phone">Nº</label>
           <input type="phone" class="form-control" id="numero" name="numero" maxlength="10" [(ngModel)]="address.numero" />
         </div>
       </div>
     </div>
-    <div class="form-group col-sm-4">
+    <div class="form-group col-md-4">
       <label for="complemento">Complemento</label>
       <input type="text" class="form-control" id="complemento" name="complemento" maxlength="100" [(ngModel)]="address.complemento"
       />
     </div>
-  </ng-container>
-</div>
+  </div>
 
-<div class="row" *ngIf="validCep">
-  <div class="form-group col-sm-5">
-    <label for="bairro">Bairro</label>
-    <input disabled type="text" class="form-control" id="bairro" name="bairro" maxlength="100" [(ngModel)]="address.bairro" />
+  <div class="row">
+    <div class="form-group col-md-5">
+      <label for="bairro">Bairro</label>
+      <input disabled type="text" class="form-control" id="bairro" name="bairro" maxlength="100" [(ngModel)]="address.bairro" />
+    </div>
+    <div class="form-group col-md-4">
+      <label for="localidade">Localidade</label>
+      <input disabled type="text" class="form-control" id="localidade" name="localidade" maxlength="100" [(ngModel)]="address.localidade"
+      />
+    </div>
+    <div class="form-group col-md-3">
+      <label for="uf">UF</label>
+      <input disabled type="text" class="form-control" id="uf" name="uf" maxlength="2" [(ngModel)]="address.uf" />
+    </div>
   </div>
-  <div class="form-group col-sm-4">
-    <label for="localidade">Localidade</label>
-    <input disabled type="text" class="form-control" id="localidade" name="localidade" maxlength="100" [(ngModel)]="address.localidade"
-    />
-  </div>
-  <div class="form-group col-sm-3">
-    <label for="uf">UF</label>
-    <input disabled type="text" class="form-control" id="uf" name="uf" maxlength="2" [(ngModel)]="address.uf" />
-  </div>
-</div>
+</ng-container>

@@ -1,10 +1,14 @@
 @import 'variables';
+@import 'mixins';
 
 #home {
-    .mainTasks { margin-top: 40px;
-        &--item {display: block; background: $green; color: white; height: 100%; font-size: 20px; text-align: center; padding: 20px; border-radius: 20px;
+    .mainTasks {
+        &--item {display: block; margin-top: 40px; background: $green; color: white; font-size: 20px; text-align: center; padding: 20px; border-radius: 20px;
             &:hover {text-decoration: none; background: darken($green, 5%); transform: scale(1.05);}
             &-ico {font-size: 80px; display: block; margin-bottom: 15px;}
+        }
+        @include breakpoint(md) {
+            &--item {height: 100%; margin: 0;}
         }
     }
 }

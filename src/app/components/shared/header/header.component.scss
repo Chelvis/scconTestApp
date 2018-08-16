@@ -2,21 +2,24 @@
 @import 'mixins';
 
 header {background: $appColor; padding: 15px 0;
-    .logo {display: block; max-width: 70px;}
-    nav {
-      a {display: block;}
-      .nav-item { border-right: 1px solid white;
-        &:last-child {border: none;}
-        &.show > a {background: darken($appColor, 5%); border-radius: 0;}
-        .nav-link {color: white; font-weight: bold;}
-        .dropdown-menu {background: darken($appColor, 5%); border-radius: 0;
-          li { transition: .3s;
-            a {color: white;}
-            &:hover {color: white; background: rgba(white,.2);
-              a {text-decoration: none;}
-            }
+  .logo {display: block; max-width: 70px;}
+  nav {
+    a {display: block;}
+    .nav-item { border-right: 1px solid white;
+      &:last-child {border: none;}
+      &.show > a {background: darken($appColor, 5%); border-radius: 0;}
+      .nav-link {color: white; font-weight: bold;}
+      .dropdown-menu {background: darken($appColor, 5%); border-radius: 0; left: auto !important; right: 0; top: 100% !important; transform: none !important;
+        li { transition: .3s;
+          a {color: white;}
+          &:hover {color: white; background: rgba(white,.2);
+            a {text-decoration: none;}
           }
         }
       }
     }
+    @include breakpoint(xs) {
+      a {padding: 5px; font-size: 13px;}
+    }
+  }
 }

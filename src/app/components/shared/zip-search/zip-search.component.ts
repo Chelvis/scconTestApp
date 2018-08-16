@@ -22,10 +22,16 @@ export class ZipSearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.newClient) {
+    if (!this.newClient) {
       this.validCep = true;
     }
     this.emitAddress.emit(this.address);
+  }
+
+  clearCEP() {
+    if (this.address.cep.length < 9) {
+      this.validCep = false;
+    }
   }
 
   checkZip() {
@@ -44,9 +50,10 @@ export class ZipSearchComponent implements OnInit {
         this.emitAddress.emit(this.address);
       });
 
-    } else if (this.validCep) {
+    } else {
       this.validCep = false;
       this.emitAddress.emit({cep: null} as Address);
+      alert('CEP incompleto!');
     }
   }
 

@@ -7,7 +7,7 @@ import { Title, } from '@angular/platform-browser';
 })
 export class AppComponent {
   title = 'Teste de Front-End SCCON';
-  loading = true;
+  loading = false;
 
   constructor(
     private titleService: Title

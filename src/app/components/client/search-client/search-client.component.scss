@@ -1,10 +1,15 @@
 @import 'variables';
+@import 'mixins';
 
-.resultTable { font-size: 14px;
+.table-wrapper {overflow-x: auto; max-width: 100%;}
+
+.resultTable { font-size: 11px; width: 150%;
     th, td {padding: 3px; border-bottom:1px solid #ddd;}
     th {background: $green; color: white;}
     &--ico {display: inline-block; margin: 0 4px; font-size: 17px; color: $appColor;
         &.fa-check {color: $green;}
         &.fa-times {color: maroon;}
     }
+    @include breakpoint(sm) {width: 100%;}
+    @include breakpoint(md) {font-size: 14px;}
 }

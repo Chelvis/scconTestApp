@@ -16,16 +16,25 @@ body {font-family: 'Open Sans', sans-serif;}
 /*------- BOTÕES E LINKS -------*/
 
 a, button {transition: .3s;}
-button, .app-button {border-radius: 5px; display: inline-block; background: $green; border: none; color: white; padding: 5px 10px; cursor: pointer;
+button, .app-button {border-radius: 5px; text-align: center; display: block; width: 100%; margin: 15px 0; background: $green; border: none; color: white; padding: 5px 10px; cursor: pointer;
     &:hover {background: darken($green, 5%); transform: scale(1.05); color: white; text-decoration: none; }
+    @include breakpoint(md) {display: inline-block; margin: 0 0 0 10px; width: auto;}
 }
 
 /*------- LISTAS -------*/
 
-dl { display: flex; flex-direction: row; flex-wrap: wrap;
+dl { display: flex; flex-direction: row; flex-wrap: wrap; font-size: 11px;
     dt, dd {display: block; border-top: 1px solid #ddd; margin: 0; padding: 3px 5px;}
-    dt {flex-basis: 20%;}
-    dd {flex-basis: 80%;}
+    dt {flex-basis: 40%;}
+    dd {flex-basis: 60%;}
+    @include breakpoint(sm) {font-size: inherit;
+        dt {flex-basis: 30%;}
+        dd {flex-basis: 70%;}
+    }
+    @include breakpoint(md) {
+        dt {flex-basis: 20%;}
+        dd {flex-basis: 80%;}
+    }
 }
 
 /*------- TEXTOS -------*/
