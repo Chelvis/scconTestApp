@@ -1,9 +1,9 @@
 import { AppComponent } from '../../../app.component';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../../models/client';
-import { Address } from '../../../models/address';
 import { ClientsService } from '../../../services/clients/clients.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post-or-put-client',
@@ -13,27 +13,56 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PostOrPutClientComponent implements OnInit {
 
   title: string;
-  client: Client;
-  validation: any;
-  requestError: boolean;
+  submitted: boolean;
+
+  form: FormGroup;
+  addressForm: FormGroup;
+  formControls: any;
+  addressFormControls: any;
 
   notFound = false;
   newClient = false;
+
+  validCep: boolean;
+
+  namePattern = /[A-Z].*\s[A-Z].*/;
+  // emailPattern = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
 
   constructor(
     private appComponent: AppComponent,
     private clientsService: ClientsService,
     private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private router: Router
   ) { }
 
   ngOnInit() {
 
+    this.form = this.formBuilder.group({
+      id: null,
+      name: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      phone: ['', Validators.compose([Validators.required, Validators.minLength(13)])],
+      active: [true, Validators.required],
+      date: ['', Validators.required]
+    });
+
+    this.addressForm = this.formBuilder.group({
+      cep: ['', Validators.compose([Validators.required, Validators.minLength(9)])],
+      logradouro: ['', Validators.required],
+      numero: '',
+      complemento: '',
+      bairro: '',
+      localidade: '',
+      uf: '',
+    });
+
     this.activatedRoute.queryParams.subscribe(query => {
       if (query.id) {
         this.appComponent.setLoading(true);
         this.clientsService.getById(parseInt(query.id, 10)).subscribe((data: Client) => {
-          this.client = data;
+          this.form.patchValue(data);
+          this.addressForm.patchValue(data.address);
           this.appComponent.setLoading(false);
         }, error => {
           if (error.status === 404) {
@@ -44,65 +73,51 @@ export class PostOrPutClientComponent implements OnInit {
         });
         this.title = 'Editar dados do cliente';
       } else {
-        this.client = {active: true} as Client;
-        this.client.address = {} as Address;
         this.newClient = true;
         this.title = 'Cadastrar cliente';
       }
       this.appComponent.setTitle(this.title);
     });
 
-  }
-
-  private addAddress(e) {
-    this.client.address = e;
-  }
-
-  private validate(): boolean {
-    this.validation = [];
-
-    const namePattern = /[A-Z].*\s[A-Z].*/;
-    const emailPattern = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-    if (!this.client.name) { this.validation.push('Por favor, informe seu nome'); } else
-    if (!namePattern.test(this.client.name)) { this.validation.push('Por favor, informe seu nome e sobrenome iniciando com maíusculas'); }
-    if (!this.client.email) { this.validation.push('Por favor, informe seu e-mail'); } else
-    if (!emailPattern.test(this.client.email)) { this.validation.push('Por favor, informe um endereço de e-mail válido'); }
-    if (!this.client.address.logradouro) { this.validation.push('Por favor, informe seu CEP completo'); }
-
-    return (this.validation.length === 0);
+    this.formControls = this.form.controls;
+    this.addressFormControls = this.addressForm.controls;
 
   }
 
   submit() {
-    if (!this.validate()) {
-      setTimeout(() => document.getElementsByClassName('messages')[0].scrollIntoView(), 50);
+
+    this.submitted = true;
+
+    if (this.form.invalid || this.addressForm.invalid || !this.validCep) {
       return;
     }
 
     this.appComponent.setLoading(true);
 
-    this.client.date = new Date();
-
     if (this.newClient) {
-      this.clientsService.post(this.client).subscribe((data: Client) => {
+      this.form.controls['date'].setValue(new Date);
+      this.clientsService.post(this.form.value, this.addressForm.value).subscribe((data: Client) => {
         alert('Inserido com sucesso!');
         this.appComponent.setLoading(false);
       }, error => console.log(error));
     } else {
-      this.clientsService.put(this.client.id, this.client).subscribe((data: Client) => {
+      this.clientsService.put(this.form.value.id, this.form.value, this.addressForm.value).subscribe((data: Client) => {
         alert('Alterado com sucesso!');
         this.appComponent.setLoading(false);
       }, error => console.log(error));
     }
   }
 
+  setValidCep(flag) {
+    this.validCep = flag;
+  }
+
   delete() {
-    if (!this.client.id) {
+    if (!this.form.value.id) {
       return;
     }
     this.appComponent.setLoading(true);
-    this.clientsService.delete(this.client.id).subscribe(data => {
+    this.clientsService.delete(this.form.value.id).subscribe(data => {
       this.router.navigate(['/clientes/busca']);
     }, error => console.log(error));
   }

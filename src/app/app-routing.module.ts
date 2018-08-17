@@ -1,3 +1,6 @@
+
+import { RoutingSegments } from './models/routing-segments';
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -10,14 +13,12 @@ import { PostOrPutClientComponent } from './components/client/post-or-put-client
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'clientes/busca', component: SearchClientComponent },
-  { path: 'clientes/dados/:id', component: ViewClientComponent },
-  { path: 'clientes/cadastro', component: PostOrPutClientComponent },
-  // { path: 'clientes', redirectTo: 'cliente/busca'},
+  { path: RoutingSegments.search, component: SearchClientComponent },
+  { path: RoutingSegments.data + '/:id', component: ViewClientComponent },
+  { path: RoutingSegments.register, component: PostOrPutClientComponent },
+  // { path: 'busca', component: SearchClientComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
-
-
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

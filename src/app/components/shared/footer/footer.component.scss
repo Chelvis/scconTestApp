@@ -1,6 +1,6 @@
 @import 'variables';
 
-footer {position: relative; bottom: 0; width: 100%; background: $appColor; color: white; padding: 10px 0; font-size: 11px; text-align: right;
+footer {position: relative; bottom: 0; width: 100%; background: $appColor; color: white; line-height: 30px; height: 30px; margin-top: -30px; font-size: 11px; text-align: right;
     a {color: white; text-decoration: underline;
         &:hover {color: mix($appColor, white, 30%);}
     }

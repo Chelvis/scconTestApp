@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../../models/client';
-import { Address } from '../../../models/address';
+import { RoutingSegments } from '../../../models/routing-segments';
+
 import { AppComponent } from '../../../app.component';
 import { ClientsService } from '../../../services/clients/clients.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-view-client',
@@ -15,6 +17,8 @@ export class ViewClientComponent implements OnInit {
   title = 'Ficha do cliente';
   client: Client;
   notFound = false;
+
+  routingSegments = RoutingSegments;
 
   constructor(
     private appComponent: AppComponent,

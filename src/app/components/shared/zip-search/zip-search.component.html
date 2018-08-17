@@ -1,50 +1,58 @@
-<label for="cep">CEP</label>
-
-<div class="row">
-  <div class="form-group col-md-3">
-    <input type="phone" class="form-control" id="cep" name="cep" [(ngModel)]="address.cep" mask='00000-000' dropSpecialCharacters="false"
-      (ngModelChange)="clearCEP()" />
-  </div>
-  <div class="form-group col-md-9" *ngIf="!validCep">
-    <button type="button" (click)="checkZip()"><i class="fa fa-search"></i> BUSCAR CEP</button>
-  </div>
-</div>
-
-<ng-container *ngIf="validCep">
+<div [formGroup]="addressForm">
   <div class="row">
-    <div class="form-group col-md-8">
-      <div class="row">
-        <div class="col-sm-9">
-          <label for="logradouro">Logadouro</label>
-          <input disabled type="text" class="form-control" id="logradouro" name="logradouro" maxlength="200" [(ngModel)]="address.logradouro"
-          />
-        </div>
-        <div class="col-sm-3">
-          <label for="phone">Nº</label>
-          <input type="phone" class="form-control" id="numero" name="numero" maxlength="10" [(ngModel)]="address.numero" />
+    <div class="col-md-3">
+      <input type="phone" placeholder="CEP" formControlName="cep" mask='00000-000' dropSpecialCharacters="false" />
+    </div>
+    <div class="col-md-9" *ngIf="showButton && !validCep">
+      <button type="button" (click)="doSearch()"><i class="fa fa-search"></i> BUSCAR CEP</button>
+    </div>
+  </div>
+
+  <span *ngIf="!validForRequisition; else errorMessages" class="validation-label">
+    <span>CEP inválido</span>
+  </span>
+
+  <ng-template #errorMessages>
+    <span *ngIf="submitted && (formControls.cep.errors || formControls.logradouro.errors)" class="validation-label">
+      <span *ngIf="formControls.cep.errors?.required">Informe seu CEP</span>
+      <span *ngIf="formControls.cep.errors?.minlength">Informe o CEP completo</span>
+      <span *ngIf="formControls.logradouro.errors?.required">Preencha o CEP e faça a busca</span>
+    </span>
+  </ng-template>
+  
+  <ng-container *ngIf="validCep">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-sm-9">
+            <label for="logradouro">Logradouro</label>
+            <input disabled type="text" placeholder="Logradouro" maxlength="200" formControlName="logradouro"
+            />
+          </div>
+          <div class="col-sm-3">
+            <input type="phone" placeholder="Nº" maxlength="10" formControlName="numero" />
+          </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <label for="complemento">Complemento</label>
+        <input type="text" placeholder="Complemento" maxlength="100" formControlName="complemento"
+        />
+      </div>
     </div>
-    <div class="form-group col-md-4">
-      <label for="complemento">Complemento</label>
-      <input type="text" class="form-control" id="complemento" name="complemento" maxlength="100" [(ngModel)]="address.complemento"
-      />
+  
+    <div class="row">
+      <div class="col-md-5">
+        <label for="bairro">Bairro</label>
+        <input disabled type="text" placeholder="Bairro" maxlength="100" formControlName="bairro" />
+      </div>
+      <div class="col-md-4">
+        <input disabled type="text" placeholder="Localidade" maxlength="100" formControlName="localidade"
+        />
+      </div>
+      <div class="col-md-3">
+        <input disabled type="text" placeholder="UF" maxlength="2" formControlName="uf" />
+      </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="form-group col-md-5">
-      <label for="bairro">Bairro</label>
-      <input disabled type="text" class="form-control" id="bairro" name="bairro" maxlength="100" [(ngModel)]="address.bairro" />
-    </div>
-    <div class="form-group col-md-4">
-      <label for="localidade">Localidade</label>
-      <input disabled type="text" class="form-control" id="localidade" name="localidade" maxlength="100" [(ngModel)]="address.localidade"
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="uf">UF</label>
-      <input disabled type="text" class="form-control" id="uf" name="uf" maxlength="2" [(ngModel)]="address.uf" />
-    </div>
-  </div>
-</ng-container>
+  </ng-container>
+</div>

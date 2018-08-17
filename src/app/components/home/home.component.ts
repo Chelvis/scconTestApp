@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../../app.component';
+import { RoutingSegments } from '../../models/routing-segments';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,8 @@ import { AppComponent } from '../../app.component';
 export class HomeComponent implements OnInit {
 
   title: string;
+
+  routingSegments = RoutingSegments;
 
   constructor(
     private appComponent: AppComponent

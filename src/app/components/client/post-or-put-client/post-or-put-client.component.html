@@ -4,6 +4,7 @@
   <section id="client" class="container">
     <h1 [innerHTML]="title"></h1>
 
+    <!--
     <div class="messages">
       <div class="messages--error" *ngIf="validation?.length">
         <h3>Cadastro incorreto!</h3>
@@ -18,30 +19,40 @@
         <p>Por favor, tente novamente mais tarde.</p>
         <p>Detalhes:</p>
 
-        {{requestError}}
+
       </div>
     </div>
+    -->
 
-    <form novalidate *ngIf="client" (submit)="submit()">
+    <form novalidate *ngIf="form" (submit)="submit()" [formGroup]="form">
       <div class="row">
-        <div class="form-group col-md-5">
-          <label for="name">Nome</label>
-          <input type="text" class="form-control" id="name" name="name" maxlength="200" [(ngModel)]="client.name" />
+        <div class="col-md-5">
+          <input matInput type="text" placeholder="Nome" maxlength="200" formControlName="name" [pattern]="namePattern" />
+          <span *ngIf="submitted && (formControls.name.errors?.required || formControls.name.errors?.pattern)" class="validation-label">
+            <span>Informe seu nome e sobrenome iniciados com maiúsculas.</span>
+          </span>
         </div>
-        <div class="form-group col-md-4">
-          <label for="email">E-mail</label>
-          <input type="email" class="form-control" id="email" name="email" maxlength="200" [(ngModel)]="client.email" />
+        <div class="col-md-4">
+          <input type="email" placeholder="E-mail" maxlength="200" formControlName="email" />
+          <span *ngIf="submitted && formControls.email.errors" class="validation-label">
+            <span *ngIf="formControls.email.errors.required">Informe seu endereço de e-mail.</span>
+            <span *ngIf="formControls.email.errors?.email">Informe um endereço de e-mail válido.</span>
+          </span>
         </div>
-        <div class="form-group col-md-3">
-          <label for="phone">Telefone</label>
-          <input type="phone" class="form-control" id="phone" name="phone" [(ngModel)]="client.phone" mask="(00) 000000000" dropSpecialCharacters="false" />
+        <div class="col-md-3">
+          <input type="phone" placeholder="Telefone" formControlName="phone" mask="(00) 000000000" dropSpecialCharacters="false" />
+          <span *ngIf="submitted && formControls.phone.errors" class="validation-label">
+            <span *ngIf="formControls.phone.errors?.required">Informe seu número de telefone.</span>
+            <span *ngIf="formControls.phone.errors?.minlength">Seu número de telefone deve conter pelo menos DDD + 8 dígitos.</span>
+          </span>
         </div>
       </div>
 
-      <app-zip-search [address]="client.address" [newClient]="newClient" (emitAddress)="addAddress($event)"></app-zip-search>
-      
+      <app-zip-search *ngIf="addressForm" [submitted]="submitted" [formControls]="addressFormControls" [addressForm]="addressForm"
+        [newClient]="newClient" (validCepEmit)="setValidCep($event)"></app-zip-search>
+
       <ng-container *ngIf="!newClient">
-        <label><input type="checkbox" name="active" [(ngModel)]="client.active" /> Ativo</label>
+        <label><input type="checkbox" formControlName="active" /> Ativo</label>
       </ng-container>
 
       <br/><br/>

@@ -9,6 +9,7 @@ import { ServicesModule } from './services/services.module';
 import { HomeModule } from './components/home/home.module';
 import { ClientModule } from './components/client/client.module';
 import { NgxMaskModule } from 'ngx-mask';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     ClientModule,
     SharedModule,
     ServicesModule,
+    BrowserAnimationsModule,
     NgxMaskModule.forRoot()
   ],
   providers: [

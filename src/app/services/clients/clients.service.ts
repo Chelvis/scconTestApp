@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Client } from '../../models/client';
 import { environment } from '../../../environments/environment';
+import { Address } from '../../models/address';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,13 @@ export class ClientsService {
     return this.http.get<Client>(this.clientsDir + id.toString());
   }
 
-  post(data: Client): Observable<Client> {
+  post(data: Client, address: Address): Observable<Client> {
+    data.address = address;
     return this.http.post<Client>(this.clientsDir, data, { headers: { 'Content-type': 'application/json; charset=UTF-8' } });
   }
 
-  put(id: number, data: Client): Observable<Client> {
+  put(id: number, data: Client, address: Address): Observable<Client> {
+    data.address = address;
     return this.http.patch<Client>(
       this.clientsDir + id.toString(),
       data,
@@ -43,12 +46,19 @@ export class ClientsService {
 
   search(data: Client): Observable<any> {
     let params = new HttpParams();
-    Object.keys(data).forEach(function (key) {
-      if (data[key]) {
-        params = params.append(key, data[key]);
-        console.log(params);
-      }
-    });
+
+    if (data.name) {
+      params = params.append('name', data.name);
+    }
+    if (data.email) {
+      params = params.append('email', data.email);
+    }
+    if (data.address.cep) {
+      params = params.append('address.cep', data.address.cep);
+    }
+
+    console.log(params);
+
     return this.http.get<any>(this.clientsDir, { params: params });
   }
 

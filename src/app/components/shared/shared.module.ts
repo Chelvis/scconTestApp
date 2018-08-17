@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { LoadingComponent } from './loading/loading.component';
 import { ClientNotFoundComponent } from './client-not-found/client-not-found.component';
@@ -13,7 +13,7 @@ import { ZipSearchComponent } from './zip-search/zip-search.component';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule,
+    ReactiveFormsModule,
     NgxMaskModule
   ],
   declarations: [

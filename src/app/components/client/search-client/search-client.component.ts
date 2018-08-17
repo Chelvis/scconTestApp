@@ -4,6 +4,10 @@ import { Client } from '../../../models/client';
 import { ClientsService } from '../../../services/clients/clients.service';
 import { Address } from '../../../models/address';
 
+import { RoutingSegments } from '../../../models/routing-segments';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+
 @Component({
   selector: 'app-search-client',
   templateUrl: './search-client.component.html',
@@ -12,24 +16,33 @@ import { Address } from '../../../models/address';
 export class SearchClientComponent implements OnInit {
 
   title = 'Busca de clientes';
-  search: Client;
   results: Client[];
+
+  form: FormGroup;
+
+  routingSegments = RoutingSegments;
 
   constructor(
     private appComponent: AppComponent,
+    private formBuilder: FormBuilder,
     private cliService: ClientsService
   ) { }
 
   ngOnInit() {
-    this.search = {} as Client;
-    this.search.address = {} as Address;
+    this.form = this.formBuilder.group({
+      name: '',
+      email: '',
+      address: this.formBuilder.group({cep: ''})
+    });
+
     this.doSearch();
     this.appComponent.setTitle(this.title);
   }
 
   doSearch() {
     this.appComponent.setLoading(true);
-    this.cliService.search(this.search).subscribe((data: Client[]) => {
+    console.log(this.form.value);
+    this.cliService.search(this.form.value).subscribe((data: Client[]) => {
       this.results = data;
       this.appComponent.setLoading(false);
     }, error => {

@@ -26,13 +26,13 @@
       <dt>Ativo:</dt>
       <dd>{{client.active ? 'Sim' : 'Não'}}</dd>
       <dt>Data de cadastro:</dt>
-      <dd>{{client.date | date: 'dd/MM/yyy - hh:mm'}}</dd>
+      <dd>{{client.date | date: 'dd/MM/yyy - HH:mm'}}</dd>
     </dl>
     <br>
 
     <div class="text-right">
       <button type="button" (click)="delete()"><i class="fa fa-trash"></i> DELETAR</button>
-      <a routerLink="/clientes/cadastro" [queryParams]="{id: client.id}" class="app-button"><i class="fa fa-edit"></i> EDITAR</a>
+      <a [routerLink]="'/' + routingSegments.register" [queryParams]="{id: client.id}" class="app-button"><i class="fa fa-edit"></i> EDITAR</a>
     </div>
 
   </section>
