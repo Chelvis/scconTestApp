@@ -42,14 +42,26 @@ Elaborado para fins de teste de aptidão em desenvolvimento de aplicações web 
     - jQuery 3.3.1.
     - Popper.js" 1.14.4.
 - Font Awesome 4.7.0.
+- json-server 0.14.0.
+- ngx-mask 6.1.2.
+- Angular Material 6.4.5.
 
 ## Observações importantes
 
-- Utilizei os recursos do Bootstrap 4 (que por sua vez, para esta tarefa, utiliza o jQuery e o Popper.js), para construir o menu com submenus, apenas para demonstrar minha aptidão com o framework, mas normalmente eu utilizaria CSS3 e JS/TS puros.
+- Utilizei os recursos do Bootstrap 4 (que por sua vez, para esta tarefa, utiliza o jQuery e o Popper.js), para construir o menu com submenus, apenas para demonstrar minha aptidão com o framework, mas normalmente eu utilizaria CSS3 e JS/TS puros;
+- Pensei em usar localStorage, mas não fez sentido gerar cache visto que se trata de um CSM;
+- Foi a primeira vez que usei Reactive forms (usava ngModel) e Angular Material (usava apenas o Twitter bootstrap);
+- Eu quis usar algum plugin para caixas de diálogos mais amigáveis, mas no limite do prazo optei por usar o padrão do navegador.
 
+## Rodando o projeto
 
+### Local (GitHub)
+https://github.com/Chelvis/scconTestApp
 
+Obs: É necessário rodar o comando `json-server --watch db.json` para simular um serviço de API.
 
-- pensei em usar localStorage
-- Fiz a validação do form manual
-- input mask, json server
+### Produção
+
+http://kelvinmarques.com.br/teste-sccon/
+
+Obs: No ambiente de produção eu uso o serviço de "fake API" do json server. O serviço fará simulações de requisições http, mas não alterará o banco de fato; A página 404 não funciona corretamente, pois precisaria de htaccess ou webconfig alterando a ação padrão do servidor para erros.
