@@ -9,8 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-client',
-  templateUrl: './view-client.component.html',
-  styleUrls: ['./view-client.component.scss']
+  templateUrl: './view-client.component.html'
 })
 export class ViewClientComponent implements OnInit {
 

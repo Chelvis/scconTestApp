@@ -2,12 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Address } from '../../../models/address';
 import { GetAddressService } from '../../../services/getAddress/get-address.service';
 import { AppComponent } from '../../../app.component';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-zip-search',
-  templateUrl: './zip-search.component.html',
-  styleUrls: ['./zip-search.component.scss']
+  templateUrl: './zip-search.component.html'
 })
 export class ZipSearchComponent implements OnInit {
 

@@ -8,8 +8,7 @@ import { RoutingSegments } from '../../../models/routing-segments';
 
 @Component({
   selector: 'app-post-or-put-client',
-  templateUrl: './post-or-put-client.component.html',
-  styleUrls: ['./post-or-put-client.component.scss']
+  templateUrl: './post-or-put-client.component.html'
 })
 export class PostOrPutClientComponent implements OnInit {
 
