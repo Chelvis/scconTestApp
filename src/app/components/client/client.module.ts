@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { MatInputModule } from '@angular/material/input';
     RouterModule,
     SharedModule,
     NgxMaskModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule
   ],
   declarations: [
     PostOrPutClientComponent,

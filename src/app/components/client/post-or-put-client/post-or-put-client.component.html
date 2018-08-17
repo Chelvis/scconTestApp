@@ -27,38 +27,44 @@
     <form novalidate *ngIf="form" (submit)="submit()" [formGroup]="form">
       <div class="row">
         <div class="col-md-5">
-          <input matInput type="text" placeholder="Nome" maxlength="200" formControlName="name" [pattern]="namePattern" />
-          <span *ngIf="submitted && (formControls.name.errors?.required || formControls.name.errors?.pattern)" class="validation-label">
-            <span>Informe seu nome e sobrenome iniciados com maiúsculas.</span>
-          </span>
+          <mat-form-field class="form-field">
+            <input matInput type="text" placeholder="Nome" maxlength="200" formControlName="name" [pattern]="namePattern" />
+            <mat-error *ngIf="formControls.name.errors?.required || formControls.name.errors?.pattern">Informe seu nome e sobrenome iniciados com maiúsculas</mat-error>
+          </mat-form-field>
         </div>
         <div class="col-md-4">
-          <input type="email" placeholder="E-mail" maxlength="200" formControlName="email" />
-          <span *ngIf="submitted && formControls.email.errors" class="validation-label">
-            <span *ngIf="formControls.email.errors.required">Informe seu endereço de e-mail.</span>
-            <span *ngIf="formControls.email.errors?.email">Informe um endereço de e-mail válido.</span>
-          </span>
+          <mat-form-field class="form-field">
+            <input matInput type="email" placeholder="E-mail" maxlength="200" formControlName="email" />
+            <mat-error *ngIf="formControls.email.errors">
+              <ng-container *ngIf="formControls.email.errors.required">Informe seu endereço de e-mail</ng-container>
+              <ng-container *ngIf="formControls.email.errors.email">Informe um endereço de e-mail válido</ng-container>
+            </mat-error>
+          </mat-form-field>
         </div>
         <div class="col-md-3">
-          <input type="phone" placeholder="Telefone" formControlName="phone" mask="(00) 000000000" dropSpecialCharacters="false" />
-          <span *ngIf="submitted && formControls.phone.errors" class="validation-label">
-            <span *ngIf="formControls.phone.errors?.required">Informe seu número de telefone.</span>
-            <span *ngIf="formControls.phone.errors?.minlength">Seu número de telefone deve conter pelo menos DDD + 8 dígitos.</span>
-          </span>
+          <mat-form-field class="form-field">
+            <input matInput type="phone" placeholder="Telefone" formControlName="phone" mask="(00) 000000000" dropSpecialCharacters="false"
+            />
+            <mat-error *ngIf="formControls.phone.errors">
+              <ng-container *ngIf="formControls.phone.errors.required">Informe seu número de telefone</ng-container>
+              <ng-container *ngIf="formControls.phone.errors.minlength">Seu número de telefone deve conter pelo menos DDD + 8 dígitos</ng-container>
+            </mat-error>
+          </mat-form-field>
         </div>
       </div>
 
       <app-zip-search *ngIf="addressForm" [submitted]="submitted" [formControls]="addressFormControls" [addressForm]="addressForm"
         [newClient]="newClient" (validCepEmit)="setValidCep($event)"></app-zip-search>
+      <br/>
+      <mat-checkbox *ngIf="!newClient" formControlName="active">Ativo</mat-checkbox>
 
-      <ng-container *ngIf="!newClient">
-        <label><input type="checkbox" formControlName="active" /> Ativo</label>
-      </ng-container>
-
-      <br/><br/>
+      <br/>
+      <br/>
       <div class="text-right">
-        <button *ngIf="!newClient" type="button" (click)="delete()"><i class="fa fa-trash"></i> DELETAR</button>
-        <button type="submit"><i class="fa fa-edit"></i> {{newClient ? 'CADASTRAR' : 'ATUALIZAR'}}</button>
+        <button *ngIf="!newClient" type="button" (click)="delete()">
+          <i class="fa fa-trash"></i> DELETAR</button>
+        <button type="submit">
+          <i class="fa fa-edit"></i> {{newClient ? 'CADASTRAR' : 'ATUALIZAR'}}</button>
       </div>
     </form>
 

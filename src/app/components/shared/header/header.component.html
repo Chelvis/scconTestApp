@@ -10,8 +10,8 @@
             <li class="nav-item"><a routerLink="/" class="nav-link">Página inicial</a></li>
             <li class="nav-item dropdown"><a [routerLink]="null" class="nav-link" data-toggle="dropdown">Clientes</a>
               <ul class="dropdown-menu">
-                <li class="dropdown-item"><a routerLink="/clientes/busca">Buscar</a></li>
-                <li class="dropdown-item"><a routerLink="/clientes/cadastro">Cadastrar</a></li>
+                <li class="dropdown-item"><a [routerLink]="'/' + routingSegments.search">Buscar</a></li>
+                <li class="dropdown-item"><a [routerLink]="'/' + routingSegments.register">Cadastrar</a></li>
               </ul>
             </li>
           </ul>

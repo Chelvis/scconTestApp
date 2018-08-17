@@ -13,12 +13,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class PostOrPutClientComponent implements OnInit {
 
   title: string;
-  submitted: boolean;
 
   form: FormGroup;
   addressForm: FormGroup;
   formControls: any;
   addressFormControls: any;
+  submitted;
 
   notFound = false;
   newClient = false;
@@ -85,8 +85,6 @@ export class PostOrPutClientComponent implements OnInit {
   }
 
   submit() {
-
-    this.submitted = true;
 
     if (this.form.invalid || this.addressForm.invalid || !this.validCep) {
       return;

@@ -1,6 +1,10 @@
 @import 'variables';
 @import 'mixins';
 
+form .appButton {
+  @include breakpoint(md) {margin-top: 13px;}
+}
+
 .table-wrapper {overflow-x: auto; max-width: 100%;}
 
 .resultTable { font-size: 11px; width: 150%;

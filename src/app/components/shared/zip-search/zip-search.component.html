@@ -1,57 +1,66 @@
 <div [formGroup]="addressForm">
   <div class="row">
     <div class="col-md-3">
-      <input type="phone" placeholder="CEP" formControlName="cep" mask='00000-000' dropSpecialCharacters="false" />
+      <mat-form-field class="form-field">
+        <input matInput type="phone" placeholder="CEP" formControlName="cep" mask='00000-000' dropSpecialCharacters="false" />
+        <mat-error>
+          <ng-container *ngIf="!validForRequisition; else errorMessages">
+            CEP inválido
+          </ng-container>
+          <ng-template #errorMessages>
+            <span *ngIf="submitted && (formControls.cep.errors || formControls.logradouro.errors)" class="validation-label">
+              <span *ngIf="formControls.cep.errors?.required">Informe seu CEP</span>
+              <span *ngIf="formControls.cep.errors?.minlength">Informe o CEP completo</span>
+              <span *ngIf="formControls.logradouro.errors?.required">Preencha o CEP e faça a busca</span>
+            </span>
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
     </div>
     <div class="col-md-9" *ngIf="showButton && !validCep">
-      <button type="button" (click)="doSearch()"><i class="fa fa-search"></i> BUSCAR CEP</button>
+      <button type="button" (click)="doSearch()">
+        <i class="fa fa-search"></i> BUSCAR CEP</button>
     </div>
   </div>
 
-  <span *ngIf="!validForRequisition; else errorMessages" class="validation-label">
-    <span>CEP inválido</span>
-  </span>
-
-  <ng-template #errorMessages>
-    <span *ngIf="submitted && (formControls.cep.errors || formControls.logradouro.errors)" class="validation-label">
-      <span *ngIf="formControls.cep.errors?.required">Informe seu CEP</span>
-      <span *ngIf="formControls.cep.errors?.minlength">Informe o CEP completo</span>
-      <span *ngIf="formControls.logradouro.errors?.required">Preencha o CEP e faça a busca</span>
-    </span>
-  </ng-template>
-  
   <ng-container *ngIf="validCep">
     <div class="row">
       <div class="col-md-8">
         <div class="row">
           <div class="col-sm-9">
-            <label for="logradouro">Logradouro</label>
-            <input disabled type="text" placeholder="Logradouro" maxlength="200" formControlName="logradouro"
-            />
+            <mat-form-field class="form-field">
+              <input matInput disabled type="text" placeholder="Logradouro" maxlength="200" formControlName="logradouro" />
+            </mat-form-field>
           </div>
           <div class="col-sm-3">
-            <input type="phone" placeholder="Nº" maxlength="10" formControlName="numero" />
+            <mat-form-field class="form-field">
+              <input matInput disabled type="phone" placeholder="Nº" maxlength="10" formControlName="numero" />
+            </mat-form-field>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <label for="complemento">Complemento</label>
-        <input type="text" placeholder="Complemento" maxlength="100" formControlName="complemento"
-        />
+        <mat-form-field class="form-field">
+          <input matInput type="text" placeholder="Complemento" maxlength="100" formControlName="complemento" />
+        </mat-form-field>
       </div>
     </div>
-  
+
     <div class="row">
       <div class="col-md-5">
-        <label for="bairro">Bairro</label>
-        <input disabled type="text" placeholder="Bairro" maxlength="100" formControlName="bairro" />
+        <mat-form-field class="form-field">
+          <input matInput disabled type="text" placeholder="Bairro" maxlength="100" formControlName="bairro" />
+        </mat-form-field>
       </div>
       <div class="col-md-4">
-        <input disabled type="text" placeholder="Localidade" maxlength="100" formControlName="localidade"
-        />
+        <mat-form-field class="form-field">
+          <input matInput disabled type="text" placeholder="Localidade" maxlength="100" formControlName="localidade" />
+        </mat-form-field>
       </div>
       <div class="col-md-3">
-        <input disabled type="text" placeholder="UF" maxlength="2" formControlName="uf" />
+        <mat-form-field class="form-field">
+          <input matInput disabled type="text" placeholder="UF" maxlength="2" formControlName="uf" />
+        </mat-form-field>
       </div>
     </div>
   </ng-container>
