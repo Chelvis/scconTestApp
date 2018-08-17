@@ -16,7 +16,9 @@ body {font-family: 'Open Sans', sans-serif;}
 /*------- FORMULÁRIOS (Com angular Material) -------*/
 
 form {
-  .form-field {width: 100%; margin-bottom: 15px;}
+  .form-field {width: 100%; margin-bottom: 15px;
+    &.disabled-field {pointer-events: none; opacity: .5;}
+  }
 }
 
 /*------- BOTÕES E LINKS -------*/
