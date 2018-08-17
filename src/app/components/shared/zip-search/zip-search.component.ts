@@ -40,6 +40,7 @@ export class ZipSearchComponent implements OnInit {
     });
   }
 
+  // Executa a busca do CEP
   doSearch() {
 
     this.appComponente.setLoading(true);

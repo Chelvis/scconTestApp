@@ -28,7 +28,6 @@ export class PostOrPutClientComponent implements OnInit {
   validCep: boolean;
 
   namePattern = /[A-Z].*\s[A-Z].*/;
-  // emailPattern = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
 
   constructor(
     private appComponent: AppComponent,
@@ -40,6 +39,7 @@ export class PostOrPutClientComponent implements OnInit {
 
   ngOnInit() {
 
+    // Constrói o FormGroup com os campos padrões para clientes
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -48,6 +48,7 @@ export class PostOrPutClientComponent implements OnInit {
       date: [new Date, Validators.required]
     });
 
+    // Constrói o FormGroup com os campos padrões para endereço
     this.addressForm = this.formBuilder.group({
       cep: ['', Validators.compose([Validators.required, Validators.minLength(9)])],
       logradouro: ['', Validators.required],
@@ -58,10 +59,16 @@ export class PostOrPutClientComponent implements OnInit {
       uf: '',
     });
 
+    // Assiste trocas de parâmetros de requisição na url
     this.activatedRoute.queryParams.subscribe(query => {
+
+      // Verifica id nos parâmetros e define se é um cadastro ou atualização
       if (query.id) {
+
         this.appComponent.setLoading(true);
         this.clientId = query.id;
+
+        // Requisita serviço GET para receber o cliente
         this.clientsService.getById(parseInt(query.id, 10)).subscribe((data: Client) => {
           this.form.patchValue(data);
           this.addressForm.patchValue(data.address);
@@ -73,7 +80,9 @@ export class PostOrPutClientComponent implements OnInit {
           console.log(error);
           this.appComponent.setLoading(false);
         });
+
         this.title = 'Editar dados do cliente';
+
       } else {
         this.newClient = true;
         this.title = 'Cadastrar cliente';
@@ -86,21 +95,26 @@ export class PostOrPutClientComponent implements OnInit {
 
   }
 
+  // Método de envio do formulário
   submit() {
 
+    // Verifica se os dados do cliente, endereço e CEP são todos válidos
     if (this.form.invalid || this.addressForm.invalid || !this.validCep) {
       return;
     }
 
     this.appComponent.setLoading(true);
 
+    // Verifica se é um novo cliente (newClient) ou atualização
     if (this.newClient) {
+      // Se for novo, requisita o cadastro do cliente via serviço PUT
       this.clientsService.post(this.form.value, this.addressForm.value).subscribe((data: Client) => {
         alert('Cliente inserido com sucesso!');
         this.appComponent.setLoading(false);
       }, error => console.log(error));
     } else if (confirm('Deseja mesmo alterar os dados do cliente?')) {
-      this.clientsService.put(this.clientId, this.form.value, this.addressForm.value).subscribe((data: Client) => {
+      // Se for atualização, requisita alterações via PATCH
+      this.clientsService.patch(this.clientId, this.form.value, this.addressForm.value).subscribe((data: Client) => {
         alert('Cliente alterado com sucesso!');
         this.appComponent.setLoading(false);
       }, error => console.log(error));
@@ -109,15 +123,21 @@ export class PostOrPutClientComponent implements OnInit {
     }
   }
 
+  // Recebe do componente de CEP e salva uma flag que diz se o CEP é válido
   setValidCep(flag) {
     this.validCep = flag;
   }
 
+  // Método deleta o cliente (disponível apenas se for atualização)
   delete() {
+
+    // Verifica se é atualização e recebe confirmação do usuário
     if (!this.form.value.id || !confirm('Deseja mesmo deletar o cliente?')) {
       return;
     }
     this.appComponent.setLoading(true);
+
+    // Requisita remoção via serviço DELETE
     this.clientsService.delete(this.form.value.id).subscribe(data => {
       alert('Cliente deletado com sucesso!');
       this.router.navigate(['/', this.routingSegments.search]);

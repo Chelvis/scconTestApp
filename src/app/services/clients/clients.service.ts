@@ -18,21 +18,24 @@ export class ClientsService {
     private http: HttpClient
   ) { }
 
+  // Lista todos os clientes
   getAll(): Observable<Client[]> {
     return this.http.get<Client[]>(this.clientsDir);
   }
 
+  // Recebe cliente pelo ID
   getById(id: number): Observable<Client> {
     return this.http.get<Client>(this.clientsDir + id.toString());
   }
 
+  // Insere novo cliente
   post(data: Client, address: Address): Observable<Client> {
     data.address = address;
     return this.http.post<Client>(this.clientsDir, data, { headers: { 'Content-type': 'application/json; charset=UTF-8' } });
   }
 
-  put(id: number, data: Client, address: Address): Observable<Client> {
-
+  // Atualiza dados de cliente existente
+  patch(id: number, data: Client, address: Address): Observable<Client> {
     data.address = address;
     return this.http.patch<Client>(
       this.clientsDir + id.toString(),
@@ -41,10 +44,12 @@ export class ClientsService {
     );
   }
 
+  // Exclui um cliente
   delete(id: number): Observable<any> {
     return this.http.delete<any>(this.clientsDir + id.toString());
   }
 
+  // Filtra clientes
   search(data: Client): Observable<any> {
     let params = new HttpParams();
 

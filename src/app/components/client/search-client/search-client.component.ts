@@ -28,6 +28,8 @@ export class SearchClientComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    // Constrói o FormGroup com os campos padrões para a busca
     this.form = this.formBuilder.group({
       name: '',
       email: '',
@@ -38,6 +40,7 @@ export class SearchClientComponent implements OnInit {
     this.appComponent.setTitle(this.title);
   }
 
+  // Faz a busca com os dados de busca atuais
   doSearch() {
     this.appComponent.setLoading(true);
     console.log(this.form.value);
@@ -49,13 +52,17 @@ export class SearchClientComponent implements OnInit {
     });
   }
 
+  // Método deleta o cliente
   delete(id: number) {
 
+    // Recebe confirmação do usuário
     if (!confirm('Deseja mesmo deletar o cliente?')) {
       return;
     }
 
     this.appComponent.setLoading(true);
+
+    // Requisita remoção via serviço DELETE
     this.cliService.delete(id).subscribe(status => {
       alert('Cliente deletado com sucesso.');
       this.doSearch();

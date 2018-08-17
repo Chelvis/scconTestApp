@@ -16,6 +16,7 @@ export class GetAddressService {
     private http: HttpClient
   ) { }
 
+  // Recebe um endereço pelo serviço Via CEP
   getAddress(cep: string): Observable<Address> {
     return this.http.get<Address>(this.makeUrl(cep));
   }

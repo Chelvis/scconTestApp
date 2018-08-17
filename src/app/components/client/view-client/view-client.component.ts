@@ -43,6 +43,7 @@ export class ViewClientComponent implements OnInit {
     });
   }
 
+  // Método deleta o cliente
   delete() {
     if (!this.client.id || !confirm('Deseja mesmo deletar o cliente?')) {
       return;
