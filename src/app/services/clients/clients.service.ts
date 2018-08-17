@@ -32,6 +32,7 @@ export class ClientsService {
   }
 
   put(id: number, data: Client, address: Address): Observable<Client> {
+
     data.address = address;
     return this.http.patch<Client>(
       this.clientsDir + id.toString(),

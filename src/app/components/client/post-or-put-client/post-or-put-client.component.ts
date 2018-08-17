@@ -4,6 +4,7 @@ import { Client } from '../../../models/client';
 import { ClientsService } from '../../../services/clients/clients.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RoutingSegments } from '../../../models/routing-segments';
 
 @Component({
   selector: 'app-post-or-put-client',
@@ -19,6 +20,8 @@ export class PostOrPutClientComponent implements OnInit {
   formControls: any;
   addressFormControls: any;
   submitted;
+
+  routingSegments = RoutingSegments;
 
   notFound = false;
   newClient = false;
@@ -95,14 +98,16 @@ export class PostOrPutClientComponent implements OnInit {
     if (this.newClient) {
       this.form.controls['date'].setValue(new Date);
       this.clientsService.post(this.form.value, this.addressForm.value).subscribe((data: Client) => {
-        alert('Inserido com sucesso!');
+        alert('Cliente inserido com sucesso!');
+        this.appComponent.setLoading(false);
+      }, error => console.log(error));
+    } else if (confirm('Deseja mesmo alterar os dados do cliente?')) {
+      this.clientsService.put(this.form.value.id, this.form.value, this.addressForm.value).subscribe((data: Client) => {
+        alert('Cliente alterado com sucesso!');
         this.appComponent.setLoading(false);
       }, error => console.log(error));
     } else {
-      this.clientsService.put(this.form.value.id, this.form.value, this.addressForm.value).subscribe((data: Client) => {
-        alert('Alterado com sucesso!');
-        this.appComponent.setLoading(false);
-      }, error => console.log(error));
+      this.appComponent.setLoading(false);
     }
   }
 
@@ -111,12 +116,13 @@ export class PostOrPutClientComponent implements OnInit {
   }
 
   delete() {
-    if (!this.form.value.id) {
+    if (!this.form.value.id || !confirm('Deseja mesmo deletar o cliente?')) {
       return;
     }
     this.appComponent.setLoading(true);
     this.clientsService.delete(this.form.value.id).subscribe(data => {
-      this.router.navigate(['/clientes/busca']);
+      alert('Cliente deletado com sucesso!');
+      this.router.navigate(['/', this.routingSegments.search]);
     }, error => console.log(error));
   }
 

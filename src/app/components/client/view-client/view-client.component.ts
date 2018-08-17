@@ -45,12 +45,13 @@ export class ViewClientComponent implements OnInit {
   }
 
   delete() {
-    if (!this.client.id) {
+    if (!this.client.id || !confirm('Deseja mesmo deletar o cliente?')) {
       return;
     }
     this.appComponent.setLoading(true);
     this.clientsService.delete(this.client.id).subscribe(data => {
-      this.router.navigate(['/clientes/busca']);
+      alert('Cliente deletado com sucesso.');
+      this.router.navigate(['/', this.routingSegments.search]);
     }, error => {
       console.log(error);
     });

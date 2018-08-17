@@ -9,7 +9,6 @@ import { MatInputModule } from '@angular/material/input';
 import { LoadingComponent } from './loading/loading.component';
 import { ClientNotFoundComponent } from './client-not-found/client-not-found.component';
 import { ZipSearchComponent } from './zip-search/zip-search.component';
-import { MatDialogComponent } from './mat-dialog/mat-dialog.component';
 
 @NgModule({
   imports: [
@@ -24,8 +23,7 @@ import { MatDialogComponent } from './mat-dialog/mat-dialog.component';
     HeaderComponent,
     LoadingComponent,
     ClientNotFoundComponent,
-    ZipSearchComponent,
-    MatDialogComponent
+    ZipSearchComponent
   ],
   exports: [
     FooterComponent,

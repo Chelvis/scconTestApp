@@ -51,10 +51,14 @@ export class SearchClientComponent implements OnInit {
   }
 
   delete(id: number) {
+
+    if (!confirm('Deseja mesmo deletar o cliente?')) {
+      return;
+    }
+
     this.appComponent.setLoading(true);
     this.cliService.delete(id).subscribe(status => {
-      alert('deletado');
-      console.log(status);
+      alert('Cliente deletado com sucesso.');
       this.doSearch();
       this.appComponent.setLoading(false);
     }, error => {
