@@ -19,7 +19,7 @@ export class PostOrPutClientComponent implements OnInit {
   addressForm: FormGroup;
   formControls: any;
   addressFormControls: any;
-  submitted;
+  clientId: number;
 
   routingSegments = RoutingSegments;
 
@@ -42,12 +42,11 @@ export class PostOrPutClientComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.formBuilder.group({
-      id: null,
       name: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.email])],
       phone: ['', Validators.compose([Validators.required, Validators.minLength(13)])],
       active: [true, Validators.required],
-      date: ['', Validators.required]
+      date: [new Date, Validators.required]
     });
 
     this.addressForm = this.formBuilder.group({
@@ -63,6 +62,7 @@ export class PostOrPutClientComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(query => {
       if (query.id) {
         this.appComponent.setLoading(true);
+        this.clientId = query.id;
         this.clientsService.getById(parseInt(query.id, 10)).subscribe((data: Client) => {
           this.form.patchValue(data);
           this.addressForm.patchValue(data.address);
@@ -96,13 +96,12 @@ export class PostOrPutClientComponent implements OnInit {
     this.appComponent.setLoading(true);
 
     if (this.newClient) {
-      this.form.controls['date'].setValue(new Date);
       this.clientsService.post(this.form.value, this.addressForm.value).subscribe((data: Client) => {
         alert('Cliente inserido com sucesso!');
         this.appComponent.setLoading(false);
       }, error => console.log(error));
     } else if (confirm('Deseja mesmo alterar os dados do cliente?')) {
-      this.clientsService.put(this.form.value.id, this.form.value, this.addressForm.value).subscribe((data: Client) => {
+      this.clientsService.put(this.clientId, this.form.value, this.addressForm.value).subscribe((data: Client) => {
         alert('Cliente alterado com sucesso!');
         this.appComponent.setLoading(false);
       }, error => console.log(error));

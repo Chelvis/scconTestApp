@@ -14,7 +14,6 @@ export class ZipSearchComponent implements OnInit {
   @Input() newClient: boolean;
   @Input() addressForm: FormGroup;
   @Input() formControls: any;
-  @Input() submitted: boolean;
   @Output() validCepEmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   validCep: boolean;
   showButton: boolean;
@@ -35,6 +34,7 @@ export class ZipSearchComponent implements OnInit {
         this.showButton = true;
       } else {
         this.showButton = false;
+        this.validForRequisition = true;
         this.validCep = false;
         this.validCepEmit.emit(this.validCep);
       }
@@ -50,6 +50,7 @@ export class ZipSearchComponent implements OnInit {
       if (data.erro) {
         this.validCep = false;
         this.validForRequisition = false;
+        this.showButton = false;
         this.validCepEmit.emit(this.validCep);
         return;
       }

@@ -53,7 +53,7 @@
         </div>
       </div>
 
-      <app-zip-search *ngIf="addressForm" [submitted]="submitted" [formControls]="addressFormControls" [addressForm]="addressForm"
+      <app-zip-search *ngIf="addressForm" [formControls]="addressFormControls" [addressForm]="addressForm"
         [newClient]="newClient" (validCepEmit)="setValidCep($event)"></app-zip-search>
       <br/>
       <mat-checkbox *ngIf="!newClient" formControlName="active">Ativo</mat-checkbox>

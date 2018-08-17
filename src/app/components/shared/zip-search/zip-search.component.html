@@ -3,18 +3,13 @@
     <div class="col-md-3">
       <mat-form-field class="form-field">
         <input matInput type="phone" placeholder="CEP" formControlName="cep" mask='00000-000' dropSpecialCharacters="false" />
-        <mat-error>
-          <ng-container *ngIf="!validForRequisition; else errorMessages">
-            CEP inválido
-          </ng-container>
-          <ng-template #errorMessages>
-            <span *ngIf="submitted && (formControls.cep.errors || formControls.logradouro.errors)" class="validation-label">
-              <span *ngIf="formControls.cep.errors?.required">Informe seu CEP</span>
-              <span *ngIf="formControls.cep.errors?.minlength">Informe o CEP completo</span>
-              <span *ngIf="formControls.logradouro.errors?.required">Preencha o CEP e faça a busca</span>
-            </span>
-          </ng-template>
+        <mat-error *ngIf="formControls.cep.errors || formControls.logradouro.errors">
+          <span *ngIf="formControls.cep.errors?.required">Informe seu CEP</span>
+          <span *ngIf="formControls.cep.errors?.minlength">Informe o CEP completo</span>
         </mat-error>
+        <mat-hint *ngIf="!validForRequisition && showButton">
+            CEP inválido
+        </mat-hint>
       </mat-form-field>
     </div>
     <div class="col-md-9" *ngIf="showButton && !validCep">
