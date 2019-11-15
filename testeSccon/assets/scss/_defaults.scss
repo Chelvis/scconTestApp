@@ -1,0 +1,50 @@
+@import 'variables';
+@import 'mixins';
+
+/*------- GERAL -------*/
+
+* {outline: none;}
+body {font-family: 'Open Sans', sans-serif;}
+
+/*------- ESTRUTURA -------*/
+
+.body-wrapper {min-height: 100vh; padding-bottom: 30px;}
+.section-wrapper {padding: 20px 0;
+    @include breakpoint(md) {padding: 50px 0;}
+}
+
+/*------- FORMULÁRIOS (Com angular Material) -------*/
+
+form {
+  .form-field {width: 100%; margin-bottom: 15px;
+    &.disabled-field {pointer-events: none; opacity: .5;}
+  }
+}
+
+/*------- BOTÕES E LINKS -------*/
+
+a, button {transition: .3s;}
+button, .app-button {border-radius: 5px; text-align: center; display: block; width: 100%; margin: 15px 0; background: $green; border: none; color: white; padding: 5px 10px; cursor: pointer;
+    &:hover {background: darken($green, 5%); transform: scale(1.05); color: white; text-decoration: none; }
+    @include breakpoint(md) {display: inline-block; margin: 0 0 0 10px; width: auto;}
+}
+
+/*------- LISTAS -------*/
+
+dl { display: flex; flex-direction: row; flex-wrap: wrap; font-size: 11px;
+    dt, dd {display: block; border-top: 1px solid #ddd; margin: 0; padding: 3px 5px;}
+    dt {flex-basis: 40%;}
+    dd {flex-basis: 60%;}
+    @include breakpoint(sm) {font-size: inherit;
+        dt {flex-basis: 30%;}
+        dd {flex-basis: 70%;}
+    }
+    @include breakpoint(md) {
+        dt {flex-basis: 20%;}
+        dd {flex-basis: 80%;}
+    }
+}
+
+/*------- TEXTOS -------*/
+
+h1 {font-size: 40px; color: $appColor;}
