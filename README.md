@@ -55,13 +55,11 @@ Elaborado para fins de teste de aptidão em desenvolvimento de aplicações web 
 
 ## Rodando o projeto
 
-### Local (GitHub)
+### Fork on GitHub
 https://github.com/Chelvis/scconTestApp
 
 Obs: É necessário rodar o comando `json-server --watch db.json` para simular um serviço de API.
 
-### Produção
+### Live demo
 
-http://kelvinmarques.com.br/teste-sccon/
-
-Obs: No ambiente de produção eu uso o serviço de "fake API" do json server. O serviço fará simulações de requisições http, mas não alterará o banco de fato; A página 404 não funciona corretamente, pois precisaria de htaccess ou webconfig alterando a ação padrão do servidor para erros.
+https://chelvis.github.io/scconTestApp/
